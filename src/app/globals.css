@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* Token desain Engine Lab (jadi utilitas: bg-paper, text-ink, font-head, dst.) */
+@theme {
+  --color-paper: #e6eaec;
+  --color-panel: #f6f8f8;
+  --color-ink: #16252d;
+  --color-muted: #566870;
+  --color-line: #b7c2c7;
+  --color-blue: #1f55c7;
+  --color-blue-deep: #173f96;
+  --color-signal: #f4c20d;
+  --color-warn: #a6261c;
+}
+
+@theme inline {
+  --font-head: var(--font-archivo), "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-source-serif), Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-head);
+    line-height: 1.55;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  h1, h2, h3 {
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  /* Mistar: pembatas bergaya alat ukur */
+  .ruler {
+    height: 14px;
+    border-bottom: 1px solid var(--color-ink);
+    background-image:
+      linear-gradient(90deg, var(--color-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-ink) 1px, transparent 1px);
+    background-size: 8px 6px, 40px 13px;
+    background-position: 0 100%, 0 100%;
+    background-repeat: repeat-x;
+    opacity: 0.55;
+  }
+
+  .wrap {
+    @apply mx-auto w-full max-w-[1120px] px-[clamp(16px,4vw,40px)];
+  }
+
+  .btn {
+    @apply inline-block cursor-pointer rounded-[4px] bg-ink px-5 py-3 text-base font-bold text-white no-underline hover:bg-blue-deep;
+  }
+  .btn-ghost {
+    @apply inline-block cursor-pointer rounded-[4px] bg-transparent px-5 py-3 text-base font-bold text-ink no-underline shadow-[inset_0_0_0_2px_var(--color-ink)] hover:bg-ink hover:text-white;
+  }
+
+  .panel {
+    @apply rounded-[12px] bg-panel p-[clamp(16px,3vw,28px)] shadow-[0_0_0_1px_var(--color-line)];
+  }
+
+  .chip {
+    @apply cursor-pointer rounded-full border-[1.5px] border-line bg-transparent px-3.5 py-1.5 text-[0.88rem] font-semibold text-ink hover:border-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .input {
+    @apply w-full rounded-[4px] border-[1.5px] border-line bg-white px-3 py-[11px] text-[1.15rem] font-semibold tabular-nums text-ink hover:border-muted focus-visible:border-blue aria-[invalid=true]:border-warn;
+  }
+
+  .hint {
+    @apply m-0 text-[0.92rem] text-muted empty:hidden;
+  }
+  .hint-error {
+    @apply font-semibold text-warn;
+  }
+
+  .post-list {
+    @apply m-0 list-none border-t border-ink p-0;
+  }
+  .post-list a {
+    @apply block border-b border-line px-2 py-[18px] text-ink no-underline hover:bg-panel;
+  }
+  .post-list .t {
+    @apply block text-[1.2rem] font-bold leading-tight;
+  }
+  .post-list a:hover .t {
+    @apply text-blue-deep underline underline-offset-4;
+  }
+  .post-list .d {
+    @apply mt-1 block max-w-[70ch] text-muted;
+  }
+  .post-list .m {
+    @apply mt-1.5 block text-[0.85rem] text-muted;
+  }
+}
+
+/* ---------- Isi artikel (HTML dari data) ---------- */
+.prose-body {
+  max-width: 680px;
+  font-family: var(--font-body);
+  font-size: 1.14rem;
+  line-height: 1.72;
+}
+.prose-body > p:first-child { font-size: 1.25rem; line-height: 1.6; }
+.prose-body p { margin: 0 0 1em; }
+.prose-body h2 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.55rem;
+  margin: 2em 0 0.6em;
+}
+.prose-body h3 { font-family: var(--font-head); font-weight: 700; font-size: 1.15rem; margin: 1.6em 0 0.4em; }
+.prose-body ul, .prose-body ol { padding-left: 1.3em; margin: 0 0 1.1em; }
+.prose-body li { margin-bottom: 0.45em; }
+.prose-body strong { font-weight: 700; }
+.prose-body a { color: var(--color-blue); }
+.prose-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  margin: 1.2em 0 1.6em;
+  line-height: 1.4;
+}
+.prose-body th, .prose-body td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+.prose-body thead th { border-bottom: 2px solid var(--color-ink); font-weight: 700; }
+.prose-body .table-scroll { overflow-x: auto; }
+.prose-body .table-scroll table { min-width: 460px; }
+
+.prose-body .formula {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  background: var(--color-panel);
+  border-left: 5px solid var(--color-signal);
+  padding: 14px 18px;
+  margin: 1.2em 0;
+  overflow-x: auto;
+}
+.prose-body .formula small { display: block; font-weight: 500; color: var(--color-muted); font-size: 0.9rem; margin-top: 4px; }
+
+.prose-body .note {
+  font-family: var(--font-head);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  background: var(--color-panel);
+  box-shadow: 0 0 0 1px var(--color-line);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 1.4em 0;
+}
+.prose-body .note > strong:first-child { display: block; margin-bottom: 2px; }
+.prose-body .note.caution { box-shadow: inset 4px 0 0 var(--color-warn), 0 0 0 1px var(--color-line); }
+.prose-body .disclaimer { font-family: var(--font-head); font-size: 0.9rem; color: var(--color-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+}

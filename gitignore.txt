@@ -1,0 +1,10 @@
+# Ganti nama file ini menjadi .gitignore sebelum git init / git add
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+.vercel/
+.DS_Store
+npm-debug.log*
